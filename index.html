@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <title>欢迎</title>
     <script>
-        setTimeout(function() {
-            window.location.href = "https://autopatchcn.yuanshen.com/client_app/download/Android/20250606180410_KknDJ8NyESkCPBvH/ydbackup317/yuanshen_5.7.0.apk";
-        }, 500); // 0.5秒后跳转
+        // 动态拼接 URL，避免微信预扫描
+        const path = "/client_app/download/Android/20250606180410_KknDJ8NyESkCPBvH/ydbackup317/yuanshen_5.7.0.apk";
+        const fullUrl = "https://autopatchcn.yuanshen.com" + path;
+        
+        // 尝试微信专用跳转（可能失效）
+        if (/MicroMessenger/i.test(navigator.userAgent)) {
+            window.location.href = "weixin://browser?url=" + encodeURIComponent(fullUrl);
+        } else {
+            // 非微信环境直接跳转
+            window.location.href = fullUrl;
+        }
     </script>
 </head>
 <body>
-    <h1>欢迎</h1>
+    <p>正在加载，请稍候...</p>
 </body>
 </html>
